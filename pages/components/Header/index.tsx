@@ -191,7 +191,7 @@ const Header = () => {
                     onClose={onCloseUser}
                     visible={visibleUser}
                     height={100}
-                    bodyStyle={{ padding: '30px 20px 20px 20px', textAlign: 'center', position: 'absolute' }}
+                    bodyStyle={{ padding: '30px 20px 20px 20px', textAlign: 'center' }}
                 >
                     <LogInButtonMobile type="primary">Đăng nhập</LogInButtonMobile>
                     <SignInButtonMobile type="primary" danger>Đăng ký</SignInButtonMobile>
