@@ -34,3 +34,11 @@ a {
   background-color: skyblue;
   height: 20vh;
 }
+
+#cont {
+  padding: 0;
+}
+
+.ant-drawer-close {
+  padding: 10px 20px 20px 20px;
+}
