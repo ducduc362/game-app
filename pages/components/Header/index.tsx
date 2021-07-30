@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
-import { Col, Row, Input, Button, Drawer, Menu } from 'antd'
+import { Col, Row, Input, Button, Drawer, Menu, Modal, Form, Checkbox } from 'antd'
 import { MenuOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
 const { Search } = Input;
 const { SubMenu } = Menu;
+
+const FullHeader = styled.div`
+    width: 100%;
+    background-color: skyblue;
+`
 
 const HeaderRow = styled(Row)`
   max-width: 1280px;
@@ -12,6 +17,8 @@ const HeaderRow = styled(Row)`
   align-items: center; 
   background-color: skyblue;
   height: 10vh;
+  position: relative;
+  /* overflow: hidden; */
 `;
 
 const ButtonCol = styled(Col)`
@@ -131,73 +138,147 @@ const Header = () => {
         setVisibleUser(true);
     };
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    const onFinish = (values: object) => {
+        console.log('Success:', values);
+    };
+
+    const onFinishFailed = (errorInfo: object) => {
+        console.log('Failed:', errorInfo);
+    };
+
     return (
-        <HeaderRow>
-            <>
-                <Col xs={{ order: 2, span: 0 }} xl={{ order: 1, span: 8 }} >
-                    <Logo>Let's Play</Logo>
-                </Col>
-                <Col xs={{ order: 2, span: 8 }} xl={{ order: 1, span: 0 }} >
-                    <LogoMobile>Let's Play</LogoMobile>
-                </Col>
-                <Col xs={{ order: 1, span: 8 }} xl={{ order: 3, span: 0 }} >
-                    <MenuIcon onClick={showDrawerMenu} />
-                    <Drawer
-                        title="Danh mục"
-                        placement="left"
-                        onClose={onCloseMenu}
-                        visible={visibleMenu}
-                        bodyStyle={{ padding: 0 }}
-                    >
-                        <Menu
-                            style={{ width: 256 }}
-                            defaultSelectedKeys={['1']}
-                            mode="inline"
+        <FullHeader>
+            <HeaderRow className="site-drawer-render-in-current-wrapper">
+                <>
+                    <Col xs={{ order: 2, span: 0 }} xl={{ order: 1, span: 8 }} >
+                        <Logo>Let's Play</Logo>
+                    </Col>
+                    <Col xs={{ order: 2, span: 8 }} xl={{ order: 1, span: 0 }} >
+                        <LogoMobile>Let's Play</LogoMobile>
+                    </Col>
+                    <Col xs={{ order: 1, span: 8 }} xl={{ order: 3, span: 0 }} >
+                        <MenuIcon onClick={showDrawerMenu} />
+                        <Drawer
+                            title="Danh mục"
+                            placement="left"
+                            onClose={onCloseMenu}
+                            visible={visibleMenu}
+                            bodyStyle={{ padding: 0 }}
                         >
-                            <Menu.Item key="1">Option 1</Menu.Item>
-                            <Menu.Item key="2">Option 2</Menu.Item>
-                            <SubMenu key="sub1" title="SubMenu">
-                                <Menu.Item key="3">Option 3</Menu.Item>
-                                <Menu.Item key="4">Option 4</Menu.Item>
-                            </SubMenu>
-                        </Menu>
-                    </Drawer>
-                </Col>
-            </>
-            <>
-                <Col xs={{ order: 3, span: 0 }} xl={{ order: 2, span: 8 }} >
-                    <Search placeholder="Tìm kiếm trò chơi" size="large" enterButton />
-                </Col>
-            </>
-            <ButtonCol xs={{ order: 1, span: 0 }} xl={{ order: 3, span: 8 }} >
-                <LogInButton type="primary">Đăng nhập</LogInButton>
-                <SignInButton type="primary" danger>Đăng ký</SignInButton>
-            </ButtonCol>
-            <SearchCol xs={{ order: 3, span: 8 }} xl={{ order: 2, span: 0 }} >
-                <SearchIcon onClick={showDrawerSearch} />
-                <Drawer
-                    placement="top"
-                    height={100}
-                    onClose={onCloseSearch}
-                    visible={visibleSearch}
-                    bodyStyle={{ padding: 0, margin: "45px 30px 0 30px" }}
-                >
-                    <Search placeholder="Tìm kiếm trò chơi" size="large" enterButton />
-                </Drawer>
-                <UserIcon onClick={showDrawerUser} />
-                <Drawer
-                    placement="top"
-                    closable={false}
-                    onClose={onCloseUser}
-                    visible={visibleUser}
-                    height={100}
-                    bodyStyle={{ padding: '30px 20px 20px 20px', textAlign: 'center' }}
-                >
-                    <LogInButtonMobile type="primary">Đăng nhập</LogInButtonMobile>
-                    <SignInButtonMobile type="primary" danger>Đăng ký</SignInButtonMobile>
-                </Drawer>
-            </SearchCol>
-        </HeaderRow>
+                            <Menu
+                                style={{ width: 256 }}
+                                defaultSelectedKeys={['1']}
+                                mode="inline"
+                            >
+                                <Menu.Item key="1">Option 1</Menu.Item>
+                                <Menu.Item key="2">Option 2</Menu.Item>
+                                <SubMenu key="sub1" title="SubMenu">
+                                    <Menu.Item key="3">Option 3</Menu.Item>
+                                    <Menu.Item key="4">Option 4</Menu.Item>
+                                </SubMenu>
+                            </Menu>
+                        </Drawer>
+                    </Col>
+                </>
+                <>
+                    <Col xs={{ order: 3, span: 0 }} xl={{ order: 2, span: 8 }} >
+                        <Search placeholder="Tìm kiếm trò chơi" size="large" enterButton />
+                    </Col>
+                </>
+                <>
+                    <ButtonCol
+                        xs={{ order: 1, span: 0 }}
+                        xl={{ order: 3, span: 8 }}
+                    >
+                        <LogInButton type="primary" onClick={showModal}>Đăng nhập</LogInButton>
+                        <SignInButton type="primary" danger>Đăng ký</SignInButton>
+                        <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} centered={true}>
+                            <p>Some contents...</p>
+                        </Modal>
+                    </ButtonCol>
+                    <SearchCol
+                        xs={{ order: 3, span: 8 }}
+                        xl={{ order: 2, span: 0 }}
+                    >
+                        <SearchIcon onClick={showDrawerSearch} />
+                        <Drawer
+                            placement="top"
+                            height={100}
+                            onClose={onCloseSearch}
+                            visible={visibleSearch}
+                            bodyStyle={{ padding: 0, margin: "45px 30px 0 30px" }}
+                        >
+                            <Search placeholder="Tìm kiếm trò chơi" size="large" enterButton />
+                        </Drawer>
+                        <UserIcon onClick={showDrawerUser} />
+                        <Drawer
+                            placement="top"
+                            closable={false}
+                            onClose={onCloseUser}
+                            visible={visibleUser}
+                            height={100}
+                            bodyStyle={{ padding: '30px 20px 20px 20px', textAlign: 'center' }}
+                            style={{ position: 'absolute' }}
+                        >
+                            <LogInButtonMobile type="primary" onClick={showModal}>Đăng nhập</LogInButtonMobile>
+                            <SignInButtonMobile type="primary" danger>Đăng ký</SignInButtonMobile>
+                            <Modal title="Đăng nhập" visible={isModalVisible} onCancel={handleCancel} centered={true} footer={null}>
+                                <Form
+                                    name="basic"
+                                    labelCol={{ span: 8 }}
+                                    wrapperCol={{ span: 16 }}
+                                    initialValues={{ remember: true }}
+                                    onFinish={onFinish}
+                                    onFinishFailed={onFinishFailed}
+                                >
+                                    <Form.Item
+                                        label="Tên đăng nhập"
+                                        name="username"
+                                        rules={[{ required: true, message: 'Bạn chưa nhập tên đăng nhập!' }]}
+                                    >
+                                        <Input />
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        label="Mật khẩu"
+                                        name="password"
+                                        rules={[{ required: true, message: 'Bạn chưa nhập mật khẩu!' }]}
+                                    >
+                                        <Input.Password />
+                                    </Form.Item>
+
+                                    <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 0, span: 24 }}>
+                                        <Checkbox>Remember me</Checkbox>
+                                    </Form.Item>
+
+                                    <Form.Item
+                                        wrapperCol={{ offset: 8, span: 16 }}
+                                    >
+                                        <Button type="primary" htmlType="submit" >
+                                            Đăng nhập
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+                            </Modal>
+                        </Drawer>
+                    </SearchCol>
+                </>
+            </HeaderRow>
+        </FullHeader>
     )
 }
 

@@ -19,14 +19,6 @@ a {
   border-radius: 50%;
 }
 
-.content {
-  max-width: 1280px;
-  margin: 0 auto;
-  align-items: center;
-  background-color: blue;
-  height: 70vh;
-}
-
 .footer {
   max-width: 1280px;
   margin: 0 auto;
@@ -37,8 +29,4 @@ a {
 
 #cont {
   padding: 0;
-}
-
-.ant-drawer-close {
-  padding: 10px 20px 20px 20px;
 }
