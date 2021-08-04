@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Col, Row, Input, Button, Drawer, Menu, Modal, Form, Checkbox } from 'antd'
+import { Col, Row, Input, Button, Drawer, Menu, Modal } from 'antd'
 import { MenuOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const { Search } = Input;
 const { SubMenu } = Menu;
@@ -232,48 +233,13 @@ const Header = () => {
                             visible={visibleUser}
                             height={100}
                             bodyStyle={{ padding: '30px 20px 20px 20px', textAlign: 'center' }}
-                            style={{ position: 'absolute' }}
                         >
-                            <LogInButtonMobile type="primary" onClick={showModal}>Đăng nhập</LogInButtonMobile>
-                            <SignInButtonMobile type="primary" danger>Đăng ký</SignInButtonMobile>
-                            <Modal title="Đăng nhập" visible={isModalVisible} onCancel={handleCancel} centered={true} footer={null}>
-                                <Form
-                                    name="basic"
-                                    labelCol={{ span: 8 }}
-                                    wrapperCol={{ span: 16 }}
-                                    initialValues={{ remember: true }}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                                >
-                                    <Form.Item
-                                        label="Tên đăng nhập"
-                                        name="username"
-                                        rules={[{ required: true, message: 'Bạn chưa nhập tên đăng nhập!' }]}
-                                    >
-                                        <Input />
-                                    </Form.Item>
-
-                                    <Form.Item
-                                        label="Mật khẩu"
-                                        name="password"
-                                        rules={[{ required: true, message: 'Bạn chưa nhập mật khẩu!' }]}
-                                    >
-                                        <Input.Password />
-                                    </Form.Item>
-
-                                    <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 0, span: 24 }}>
-                                        <Checkbox>Remember me</Checkbox>
-                                    </Form.Item>
-
-                                    <Form.Item
-                                        wrapperCol={{ offset: 8, span: 16 }}
-                                    >
-                                        <Button type="primary" htmlType="submit" >
-                                            Đăng nhập
-                                        </Button>
-                                    </Form.Item>
-                                </Form>
-                            </Modal>
+                            <LogInButtonMobile type="primary">
+                                <Link href="/account/signin" passHref>Đăng nhập </Link>
+                            </LogInButtonMobile>
+                            <SignInButtonMobile type="primary" danger>
+                                <Link href="/account/signup" passHref>Đăng ký </Link>
+                            </SignInButtonMobile>
                         </Drawer>
                     </SearchCol>
                 </>
