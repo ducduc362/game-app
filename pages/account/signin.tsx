@@ -1,7 +1,8 @@
 import { Form, Button, Input } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { useRouter } from 'next/dist/client/router'
 import axiosInstance from '../../client'
 
 const Container = styled.div`
@@ -55,14 +56,26 @@ const validateMessages = {
 };
 
 const SignUp = () => {
+    const router = useRouter();
+
     async function LogIn(values: object) {
         try {
             const response = await axiosInstance.post('/auth/signin', { ...values });
             console.log(response, 'test');
+            localStorage.setItem('access_token', response.data.access_token)
+            router.push('/account/profile');
         } catch (error) {
             console.error(error, 'error');
         }
     }
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem('access_token');
+        console.log(accessToken, 'check');
+        if (accessToken) {
+            router.push('/')
+        }
+    }, [router])
 
     return (
         <Container>

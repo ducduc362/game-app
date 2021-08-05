@@ -19,7 +19,6 @@ const HeaderRow = styled(Row)`
   background-color: skyblue;
   height: 10vh;
   position: relative;
-  /* overflow: hidden; */
 `;
 
 const ButtonCol = styled(Col)`

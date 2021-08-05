@@ -2,6 +2,7 @@ import { Form, Button, Input } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
+import { useRouter } from 'next/dist/client/router'
 import axiosInstance from '../../client'
 
 const Container = styled.div`
@@ -55,11 +56,12 @@ const validateMessages = {
 };
 
 const SignUp = () => {
+    const router = useRouter();
     async function getUser(values: object) {
-        console.log(values, 'object');
         try {
             const response = await axiosInstance.post('/auth/signup', { ...values });
             console.log(response, 'test');
+            router.push('/account/signin');
         } catch (error) {
             console.error(error, 'error');
         }

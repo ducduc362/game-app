@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/globals.css'
 import 'antd/dist/antd.css';
 import type { AppProps } from 'next/app'

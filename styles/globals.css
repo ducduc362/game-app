@@ -15,10 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-#logo {
-  border-radius: 50%;
-}
-
 .footer {
   max-width: 1280px;
   margin: 0 auto;
@@ -29,4 +25,8 @@ a {
 
 #cont {
   padding: 0;
+}
+
+#logo {
+  border-radius: 50%;
 }
